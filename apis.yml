@@ -1,4 +1,6 @@
 aid: group-1-automotive
+tags:
+  - Fortune 500
 url: 
   https://raw.githubusercontent.com/api-evangelist/group-1-automotive/refs/heads/main/apis.yml
 modified: '2026-03-24'
