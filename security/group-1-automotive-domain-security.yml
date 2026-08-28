@@ -1,0 +1,26 @@
+generated: '2026-08-28'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.group1auto.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  5 18:45:34 2026 GMT
+  hsts: true
+  hsts_max_age: 3000
+  hsts_note: 'Strict-Transport-Security: max-age=3000 observed on https://www.group1auto.com/llms.txt
+    (200) on 2026-08-28. The automated probe recorded null because Cloudflare bot management answers 403
+    to the site root for non-browser clients; the header is present on paths that are served. max-age=3000
+    (50 minutes) is far below the 31536000 recommended for preload eligibility.'
+domains:
+- domain: group1auto.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
+notes: group-1-automotive.com does not resolve (NXDOMAIN) and was the Website pointer in apis.yml before
+  this pass; the live corporate/retail host is www.group1auto.com, served by the Cars.com / Dealer Inspire
+  platform behind Cloudflare. Investor site www.group1corp.com is a Notified investorroom.com tenant.
+  UK operations run on www.group1auto.co.uk (Azure Front Door). No CAA record and no DNSSEC on group1auto.com;
+  DMARC is published at p=none (monitor only, no enforcement).

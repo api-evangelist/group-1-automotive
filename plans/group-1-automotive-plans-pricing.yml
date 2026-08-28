@@ -1,0 +1,37 @@
+generated: '2026-08-28'
+method: searched
+source: >-
+  https://www.group1auto.com/llms.txt (200) and https://www.group1auto.com/ (200), searched
+  2026-08-28 for any developer, API, partner or data-access pricing page.
+plan_count: 0
+note: >-
+  Group 1 Automotive publishes no API plans, tiers, quotas or pricing of any kind, and this is
+  not a "contact sales" gate either — there is no sales gate to hit, because there is no API
+  product being sold. Group 1 is an automotive retailer, not a software vendor; its commerce is
+  vehicles, service and finance, not API calls. The one machine-callable surface it publishes,
+  GET /llm/inventory/, is free, anonymous and unmetered: no key, no signup, no plan, no quota,
+  no overage. That is recorded here as plan_count: 0 rather than omitted, so the zero is a
+  measured fact rather than a gap in our coverage.
+plans: []
+commercial_posture:
+  api_product: false
+  free_anonymous_access: true
+  signup_required: false
+  contact_sales_gate: false
+  detail: >-
+    No developer portal, no /pricing page for data access, no partner API tier, and no
+    "request API access" form was found on www.group1auto.com, www.shopgroup1.com or
+    www.group1corp.com. Group 1's integration posture with the automotive software ecosystem
+    runs the other direction — it consumes vendor platforms (Dealer Inspire for the retail sites,
+    the AcceleRide digital-retail stack) rather than publishing a commercial API of its own.
+evidence:
+  - url: https://www.group1auto.com/llms.txt
+    status: 200
+    finding: Advertises the agent endpoint with no mention of cost, key, quota or terms.
+  - url: https://www.group1auto.com/
+    status: 200
+    finding: >-
+      Footer and navigation carry no developer, API, partner-integration or data-licensing link.
+  - url: https://www.group1corp.com/
+    status: 200
+    finding: Investor-relations site; no developer or API commercial surface.

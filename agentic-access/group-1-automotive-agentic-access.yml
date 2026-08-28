@@ -1,0 +1,125 @@
+generated: '2026-08-28'
+method: searched
+source: https://www.group1auto.com/llms.txt
+summary: >-
+  Group 1 Automotive publishes a deliberate, first-party AI-agent access contract in the form of
+  an llms.txt on two of its own hosts. It is not an API program — there is no OpenAPI, no key,
+  no portal — but it is an explicit, documented, anonymous read surface built for LLM clients,
+  and it works: the endpoints it advertises return live inventory. This artifact records that
+  surface as the company actually published it.
+surfaces:
+  - name: Group 1 Automotive inventory (corporate retail site)
+    llms_txt: https://www.group1auto.com/llms.txt
+    llms_txt_status: 200
+    llms_txt_content_type: text/plain; charset=utf-8
+    endpoint: https://www.group1auto.com/llm/inventory/
+    representation: text/html (server-rendered, no JavaScript required)
+    authentication: none
+    observed:
+      fetched: '2026-08-28'
+      result: >-
+        GET /llm/inventory/?bodytype=SUVs&limit=2 returned a server-rendered listing page titled
+        "SUVs Vehicle Inventory - Group 1 Automotive" reporting "Page 1 of 13044 (26088 total
+        vehicles)", with per-vehicle year, model, trim, new/used status, mileage, price and VIN
+        (e.g. 2026 Ford Bronco Sport, 5 miles, $40,197, VIN 3FMCR9CN8TRE54995).
+  - name: AcceleRide (Group 1 digital-retail brand)
+    llms_txt: https://www.shopgroup1.com/llms.txt
+    llms_txt_status: 200
+    llms_txt_content_type: text/plain; charset=utf-8
+    endpoint: https://www.shopgroup1.com/llm/inventory/
+    representation: text/html (server-rendered, no JavaScript required)
+    authentication: none
+    observed:
+      fetched: '2026-08-28'
+      result: >-
+        llms.txt retrieved verbatim (1,350 bytes), headed "# AcceleRide", advertising the same
+        /llm/inventory/ endpoint and the same parameter set on the AcceleRide host. The endpoint
+        itself was not separately fetched; only the manifest was verified on this host.
+operations:
+  - id: browseInventory
+    method: GET
+    path: /llm/inventory/
+    action_class: read
+    consequence: none
+    reversibility: na
+    escalation: none
+    token: none
+    description: >-
+      Browse Group 1 Automotive's live new and used vehicle inventory, filtered and paginated
+      via query string. Documented in the provider's own llms.txt.
+    parameters:
+      - name: type
+        documented_values: [new, used]
+        source: llms.txt "Parameters" line + the "Browse New" / "Browse Used" examples
+      - name: make
+        source: llms.txt "Parameters" line
+      - name: model
+        source: llms.txt "Parameters" line
+      - name: year_min
+        source: llms.txt "Parameters" line + the "Browse 2022+" example (year_min=2022)
+      - name: year_max
+        source: llms.txt "Parameters" line
+      - name: price_min
+        source: llms.txt "Parameters" line
+      - name: price_max
+        source: llms.txt "Parameters" line + the "Under $30k" example (price_max=30000)
+      - name: bodytype
+        documented_values: [SUVs, Trucks, Vans, Sedans]
+        source: llms.txt "Browse SUVs/Trucks/Vans/Sedans" example URLs
+      - name: keyword
+        source: llms.txt "Parameters" line + the "white SUVs" example (keyword=white)
+      - name: limit
+        source: llms.txt "Parameters" line
+      - name: page
+        source: llms.txt "Parameters" line; observed in the rendered pager as page=2
+agent_policy:
+  robots_txt: https://www.group1auto.com/robots.txt
+  robots_txt_status: 200
+  user_agent_rules: 'User-agent: * — no agent is named, allowed or denied specifically.'
+  crawl_delay_seconds: 1
+  disallowed_paths:
+    - /wp-admin/
+    - /wp-includes/
+    - /wp-content/uploads/inventory/
+    - /wp-content/uploads/pb_backupbuddy/
+    - /wp-content/uploads/chromeData/
+    - /wp-content/uploads/configuratorTron/
+    - /wp-content/uploads/gravity_forms/
+  llm_paths_disallowed: false
+  note: >-
+    robots.txt does not disallow /llm/, so the advertised agent endpoint is crawlable under the
+    site's own rules. There is no ai.txt, no AIPREF signal, and no Content-Signal header. The
+    Terms of Use at https://www.group1auto.com/terms-of-use/ (effective 2026-06-29) does contain
+    an "AI tool usage" section, so the company's agent posture is split across two documents that
+    do not reference each other.
+divergence:
+  finding: >-
+    The surface Group 1 advertises to agents is reachable by a browser-class client and refused
+    to a plain HTTP client. Cloudflare bot management on www.group1auto.com answered HTTP 403 to
+    every curl request for /llm/inventory/ (and for the site root, /openapi.json, /wp-json/ and
+    /sitemap.xml) even with a current desktop browser User-Agent, while the same URL fetched
+    through a browser-class path returned the full inventory listing. /llms.txt and /robots.txt
+    themselves are served to plain clients at 200.
+  implication: >-
+    An agent that speaks plain HTTP reads the llms.txt telling it to call /llm/inventory/, then
+    gets a 403 at that endpoint. The instruction and the enforcement disagree. This is a
+    provider-side edge-policy gap, not an absence of intent — the endpoint is real and the
+    content is there.
+  evidence:
+    - url: https://www.group1auto.com/llms.txt
+      client: curl (desktop browser UA)
+      status: 200
+    - url: https://www.group1auto.com/llm/inventory/
+      client: curl (desktop browser UA)
+      status: 403
+      body: Cloudflare "Attention Required!" interstitial, 4,569 bytes
+    - url: https://www.group1auto.com/llm/inventory/?bodytype=SUVs&limit=2
+      client: browser-class fetch
+      status: 200
+      body: server-rendered inventory listing, 26,088 records reported
+gaps:
+  - No JSON representation. format=json is ignored; /llm/inventory.json returns the site 404.
+  - No OpenAPI, AsyncAPI, GraphQL SDL or Postman collection describing the endpoint.
+  - No /.well-known/api-catalog pointing at the surface (all /.well-known/ paths 404).
+  - No MCP server and no A2A agent card.
+  - llms.txt does not state a rate limit, a change policy, a contact, or terms for agent use.

@@ -1,0 +1,47 @@
+generated: '2026-08-28'
+method: probed
+source: >-
+  https://www.group1auto.com/robots.txt (200) and response headers observed on
+  https://www.group1auto.com/llms.txt (200), 2026-08-28.
+limit_count: 1
+note: >-
+  Group 1 Automotive publishes no API rate limit, because it publishes no API program. The one
+  throughput constraint it does state for automated clients is a robots.txt Crawl-delay, which
+  applies to the same host that serves the agent-facing /llm/inventory/ endpoint. It is recorded
+  here as what it is — a crawl directive, not an HTTP rate-limit contract — so a reader is not
+  left thinking the surface is unbounded, and not left thinking it is metered either.
+limits:
+  - scope: per-client, host-wide (all automated user agents)
+    surface: https://www.group1auto.com/ (including /llm/inventory/)
+    kind: robots.txt crawl-delay
+    window: 1 second
+    limit: 1 request
+    burst: null
+    enforced_by: >-
+      Voluntary compliance. Not enforced with a 429 — the observable enforcement on this host is
+      Cloudflare bot management, which answers 403 to non-browser clients regardless of pacing.
+    source: https://www.group1auto.com/robots.txt
+    directive: 'Crawl-delay: 1'
+response_headers:
+  ratelimit_standard: []
+  x_ratelimit: []
+  retry_after: false
+  observed_on:
+    - url: https://www.group1auto.com/llms.txt
+      status: 200
+      headers_present:
+        - cache-control
+        - strict-transport-security
+        - x-envoy-upstream-service-time
+        - cf-cache-status
+      rate_limit_headers_present: false
+exhaustion:
+  status_code: null
+  detail: >-
+    No 429 was observed and none is documented. The refusal an over-eager or non-browser client
+    actually receives on this host is HTTP 403 with a Cloudflare interstitial, which is a bot
+    decision rather than a rate decision and carries no Retry-After.
+gaps:
+  - No documented requests-per-second, per-minute or per-day figure for /llm/inventory/.
+  - No RateLimit-* or X-RateLimit-* headers, so an agent cannot pace itself from the response.
+  - No 429 semantics and no Retry-After, so a blocked agent has no documented backoff.

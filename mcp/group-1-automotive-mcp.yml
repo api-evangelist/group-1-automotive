@@ -1,0 +1,83 @@
+generated: '2026-08-28'
+method: derived
+status: candidate
+source: >-
+  Derived from the provider-published surface in llms/group-1-automotive-llms.txt. No MCP server
+  exists — this is a candidate shape only.
+note: >-
+  Group 1 Automotive ships NO MCP server, hosted or local. This file is a derived candidate,
+  recorded so the whitespace is visible, and it deliberately carries NO MCPServer pointer in
+  apis.yml: emitting one would assert an agent surface the company does not operate. What Group 1
+  does operate is one step short of MCP and unusually close to it — a documented, anonymous,
+  parameterized read endpoint published in its own llms.txt specifically for AI assistants. The
+  tool below is what that endpoint would be if it were exposed over MCP; the input schema is
+  taken verbatim from the parameters the provider documents, not invented.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: none
+  verified: derived
+search_evidence:
+  - checked: npm registry search for "group1auto" and "acceleride"
+    result: no packages
+  - checked: PyPI /pypi/group1auto/json
+    result: 404
+  - checked: GitHub organizations group1auto / group1automotive / Group1Automotive
+    result: 404 — no GitHub organization exists for this company
+  - checked: https://www.group1auto.com/.well-known/ai-plugin.json
+    result: 404
+candidate_tools:
+  - name: browse_inventory
+    description: >-
+      Search Group 1 Automotive's live new and used vehicle inventory across its US dealership
+      network and return matching vehicles with year, model, trim, condition, mileage, price and
+      VIN.
+    backing_surface: GET https://www.group1auto.com/llm/inventory/
+    inputSchema:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [new, used]
+          description: Vehicle condition.
+        make:
+          type: string
+          description: Vehicle manufacturer.
+        model:
+          type: string
+          description: Vehicle model name.
+        year_min:
+          type: integer
+          description: Earliest model year, inclusive.
+        year_max:
+          type: integer
+          description: Latest model year, inclusive.
+        price_min:
+          type: integer
+          description: Minimum price in USD, inclusive.
+        price_max:
+          type: integer
+          description: Maximum price in USD, inclusive.
+        bodytype:
+          type: string
+          enum: [SUVs, Trucks, Vans, Sedans]
+          description: Body style.
+        keyword:
+          type: string
+          description: Free-text match, e.g. an exterior color.
+        limit:
+          type: integer
+          description: Records per page.
+        page:
+          type: integer
+          description: 1-indexed page number.
+      required: []
+    schema_provenance: >-
+      Property names and the SUVs/Trucks/Vans/Sedans and new/used value sets are quoted from the
+      provider's llms.txt. Types are inferred from the documented example values (year_min=2022,
+      price_max=30000, keyword=white). No property was added that the provider does not document.
+    caveat: >-
+      The backing endpoint returns HTML, not JSON, so any real implementation would have to parse
+      server-rendered markup. Group 1 publishes no structured representation to bind a tool to.

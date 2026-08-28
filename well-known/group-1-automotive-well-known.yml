@@ -1,0 +1,86 @@
+generated: '2026-08-28'
+method: probed
+source: >-
+  Direct HTTPS probes of /.well-known/* on every Group 1 Automotive host, 2026-08-28.
+note: >-
+  Every /.well-known/ path probed returned 404 on all three Group 1 Automotive hosts. No
+  WellKnown or SecurityTxt pointer is emitted in apis.yml, because nothing was served — this
+  file records a verified ABSENCE, not a presence. Two false-positive shapes were specifically
+  rejected: www.group1auto.com answers 404 with a 552KB Dealer Inspire HTML 404 page (a soft-404
+  body, not a document), and www.shopgroup1.com answers 404 with a 437KB HTML page for
+  /.well-known/agent-card.json. Neither is an agent card. Note also that www.group1auto.com
+  DOES serve /llms.txt and /robots.txt at the root (both 200, text/plain) — the company has an
+  agent-facing posture, it simply does not express any of it through /.well-known/.
+hosts:
+  - host: www.group1auto.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+  - host: www.group1corp.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+  - host: www.group1auto.co.uk
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+        note: 301 to the trailing-slash form, which then returns 404 with a zero-byte body.
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+        note: 301 to the trailing-slash form, which then returns 404 with a zero-byte body.
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+        note: 301 to the trailing-slash form, which then returns 404 with a zero-byte body.
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null

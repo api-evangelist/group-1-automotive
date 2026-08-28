@@ -1,0 +1,32 @@
+# LLMs.txt - AI/LLM Integration Information
+# AcceleRide
+# This file describes how AI assistants can interact with this dealership website.
+
+## Browse Inventory (HTML - Best for Web Browsing LLMs)
+Server-rendered HTML pages with vehicle data. No JavaScript required.
+
+Browse All Vehicles: https://www.shopgroup1.com/llm/inventory/
+Browse SUVs: https://www.shopgroup1.com/llm/inventory/?bodytype=SUVs
+Browse Trucks: https://www.shopgroup1.com/llm/inventory/?bodytype=Trucks
+Browse Vans: https://www.shopgroup1.com/llm/inventory/?bodytype=Vans
+Browse Sedans: https://www.shopgroup1.com/llm/inventory/?bodytype=Sedans
+Browse New: https://www.shopgroup1.com/llm/inventory/?type=new
+Browse Used: https://www.shopgroup1.com/llm/inventory/?type=used
+Browse Under $30k: https://www.shopgroup1.com/llm/inventory/?price_max=30000
+Browse 2022+: https://www.shopgroup1.com/llm/inventory/?year_min=2022
+
+Parameters: type, make, model, year_min, year_max, price_min, price_max, bodytype, keyword, limit, page
+
+## Quick Examples
+
+Find white SUVs from 2022+:
+https://www.shopgroup1.com/llm/inventory/?bodytype=SUVs&year_min=2022&keyword=white
+
+Find Trucks under $20,000:
+https://www.shopgroup1.com/llm/inventory/?bodytype=Trucks&price_max=20000
+
+Find used vehicles:
+https://www.shopgroup1.com/llm/inventory/?type=used
+
+## Contact
+Website: https://www.shopgroup1.com

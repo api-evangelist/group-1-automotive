@@ -1,0 +1,132 @@
+generated: '2026-08-28'
+method: derived
+source: llms/group-1-automotive-llms.txt (provider-published) plus live observation of https://www.group1auto.com/llm/inventory/
+  on 2026-08-28.
+scope: 'Cross-cutting semantics for the only machine-callable surface Group 1 Automotive publishes:
+  the anonymous /llm/inventory/ browse endpoint advertised in its own llms.txt. Group 1 does not publish
+  an API style guide, so everything below is derived from the documented parameter set and from what
+  the endpoint actually returned — nothing is asserted that was not observed or stated in llms.txt.'
+authentication:
+  style: none
+  detail: No API key, token, cookie or signed request. The endpoint is anonymous and public. The provider
+    publishes no authentication documentation because there is nothing to authenticate.
+  source: https://www.group1auto.com/llms.txt
+transport:
+  protocol: HTTPS
+  tls_version: TLSv1.3
+  methods:
+  - GET
+  content_type: text/html; charset=UTF-8
+  content_negotiation:
+    supported: false
+    detail: No JSON representation is offered. A format=json query parameter is ignored and the response
+      remains HTML; /llm/inventory.json returns the site's 404 page. An agent must parse the server-rendered
+      markup.
+pagination:
+  style: page-number with explicit size
+  params:
+  - name: page
+    role: 1-indexed page number
+  - name: limit
+    role: records per page
+  response_signals:
+  - The rendered page states its own position and total, e.g. "Page 1 of 13044 (26088 total vehicles)"
+    — a total count and a page count are both exposed to the reader.
+  cursor: false
+  link_headers: false
+  source: llms.txt "Parameters" line; totals observed in the rendered response 2026-08-28.
+filtering:
+  style: flat query-string predicates, AND-combined
+  params:
+  - name: type
+    kind: enum
+    values:
+    - new
+    - used
+  - name: make
+    kind: string
+  - name: model
+    kind: string
+  - name: year_min
+    kind: integer
+    kind_detail: inclusive lower bound
+  - name: year_max
+    kind: integer
+    kind_detail: inclusive upper bound
+  - name: price_min
+    kind: integer
+    kind_detail: USD
+    inclusive lower bound: null
+  - name: price_max
+    kind: integer
+    kind_detail: USD
+    inclusive upper bound: null
+  - name: bodytype
+    kind: enum
+    values:
+    - SUVs
+    - Trucks
+    - Vans
+    - Sedans
+  - name: keyword
+    kind: string
+    kind_detail: free-text match
+    e.g. a color: null
+  ranges_use_min_max_suffixes: true
+  note: Range filters follow a consistent _min/_max suffix convention across year and price. That consistency
+    is the closest thing to a published design convention in the surface.
+field_expansion:
+  supported: false
+sparse_fieldsets:
+  supported: false
+metadata:
+  supported: false
+request_tracing:
+  request_id_header: null
+  detail: No X-Request-Id or correlation header is returned. Responses do carry an x-cars-signature-v1
+    header and an x-envoy-upstream-service-time value, both artifacts of the Cars.com / Dealer Inspire
+    hosting platform rather than a documented tracing contract.
+versioning:
+  scheme: none
+  detail: The path carries no version segment and no version header is sent. There is no published deprecation
+    policy, no changelog, and no stated stability guarantee for /llm/inventory/ or for the parameter
+    names in llms.txt. An agent has no signal if the shape changes.
+error_envelope:
+  format: HTML
+  detail: Errors are the site's ordinary HTML error pages, not a structured envelope. There is no RFC
+    9457 application/problem+json. A 404 returns a full 552KB Dealer Inspire marketing 404 page; a bot-management
+    refusal returns a 4,569-byte Cloudflare "Attention Required!" interstitial with status 403. Neither
+    is machine-classifiable beyond the status code.
+  rfc9457: false
+rate_limit_signaling:
+  response_headers: []
+  detail: 'No RateLimit-*, X-RateLimit-* or Retry-After headers were observed on a 200 response. The
+    only published throughput signal is "Crawl-delay: 1" in robots.txt. See rate-limits/group-1-automotive-rate-limits.yml.'
+idempotency:
+  supported: na
+  detail: Not applicable. The surface is read-only — GET only, no write operations exist — so there
+    is nothing to double-fire and no idempotency key to carry.
+dry_run_mode:
+  supported: na
+  detail: Not applicable. Read-only surface; there is no action to rehearse.
+reversibility:
+  grade: na
+  applicable: false
+  write_surface: false
+  detail: 'Group 1 Automotive publishes no write operation on any machine-readable surface. The only
+    documented endpoint, GET /llm/inventory/, retrieves vehicle inventory and changes no state, so there
+    is no action for an agent to take back. reversibility, dry_run_mode and idempotency are all `na`
+    here for the same reason, and na is the honest answer rather than a zero: a read-only API cannot
+    fail a reversal test it can never be asked to take. Note that the consumer-facing purchase, financing,
+    trade-in and service-scheduling flows on AcceleRide are human web forms, not documented API operations,
+    and are therefore out of scope for this artifact — no reversal window is asserted for them here
+    because the provider states none in any machine-readable form.'
+  reversal_operations: []
+cross_links:
+  agentic_access: agentic-access/group-1-automotive-agentic-access.yml
+  rate_limits: rate-limits/group-1-automotive-rate-limits.yml
+  plans: plans/group-1-automotive-plans-pricing.yml
+  llms_txt: llms/group-1-automotive-llms.txt
+  errors: null
+  lifecycle: null
+  authentication: null
