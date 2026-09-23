@@ -1,7 +1,9 @@
 ---
 title: Group 1 Automotive Acquires High Volume Luxury Brand ...
 url: https://www.prnewswire.com/news-releases/group-1-automotive-acquires-high-volume-luxury-brand-dealership-302521201.html
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Group 1 Automotive" press release artificial intelligence'
 position: 1
 source: serpapi-google

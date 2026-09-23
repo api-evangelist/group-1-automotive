@@ -1,7 +1,9 @@
 ---
 title: Group 1 Debuts Digital Sales and F&I Platform
 url: https://www.autodealertodaymagazine.com/news/group-1-debuts-digital-sales-and-fi-platform
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Group 1 Automotive" press release artificial intelligence'
 position: 3
 source: serpapi-google
