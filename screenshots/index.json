@@ -1,0 +1,11 @@
+[
+  {
+    "repo": "group-1-automotive",
+    "captured_at": "2026-10-11T185917",
+    "source_url": "https://www.group1auto.com",
+    "source_type": "Website",
+    "file": "group-1-automotive-2026-10-11T185917.png",
+    "bytes": 848069,
+    "capture": "playwright-local"
+  }
+]
