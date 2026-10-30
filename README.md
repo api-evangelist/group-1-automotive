@@ -64,12 +64,110 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-This is a repository for tracking the APIs, SDKs, and other developer resources for Group 1 Automotive.
+Group 1 Automotive (NYSE: GPI) is an international Fortune 500 automotive retailer operating automotive dealerships, collision centers and service departments across the United States, the United Kingdom and Brazil, representing more than 35 vehicle brands. Group 1 does not operate a public developer program, but it does publish an AI-agent-facing surface: an llms.txt on www.group1auto.com and on its AcceleRide digital-retail site www.shopgroup1.com, each advertising a documented, parameterized, server-rendered vehicle-inventory browse endpoint at /llm/inventory/ that returns live new and used inventory (VIN, year, model, trim, mileage, price) without JavaScript, authentication, or an API key. There is no OpenAPI, AsyncAPI, GraphQL SDL, MCP server, agent card, SDK or partner API reference published anywhere on the company's own hosts.
 
-## APIs
+**Areas:** Fortune 500 · Automotive · Automotive Retail · Vehicle Inventory · Dealership · Retail · Agentic Access · llms-txt
 
-No APIs have been documented yet. Check back for updates.
+## Group 1 Automotive on APIs.io
 
-## Properties
+Everything profiled for Group 1 Automotive is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/group-1-automotive/](https://apis.io/providers/group-1-automotive/)** — or go straight to one of the APIs or properties below.
 
-- [Website](https://www.group-1-automotive.com)
+### APIs (1)
+
+- [Group 1 Automotive LLM Inventory Browse](https://apis.io/apis/group-1-automotive/group-1-automotive-llm-inventory/) — A server-rendered, anonymous HTTP read surface that Group 1 Automotive publishes specifically for AI assistants, advertised in its own /llms.txt. GET…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [group-1-automotive-mcp.yml](https://apis.io/servers/group-1-automotive/group-1-automotive-mcp-yml/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Group 1 Automotive Agentic Access](https://apis.io/agentic-access/group-1-automotive/group-1-automotive-agentic-access/)
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Group 1 Automotive Domain Security](https://apis.io/security/group-1-automotive/group-1-automotive-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Group 1 Automotive Plans Pricing](https://apis.io/plans/group-1-automotive/group-1-automotive-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Group 1 Automotive Rate Limits](https://apis.io/rate-limits/group-1-automotive/group-1-automotive-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.group1auto.com)
+- [Support](https://www.group1auto.com/contact-us/)
+- [Terms of service](https://www.group1auto.com/terms-of-use/)
+- [Privacy policy](https://www.group1auto.com/privacy-policy/)
+
+## API Evangelist rating
+
+**Kin Score 15.0** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 0.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 4.8 |
+| Access clarity | 21.1 |
+
+**Agent readiness 9.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | yes |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 13.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/group-1-automotive/](https://apis.io/providers/group-1-automotive/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Group 1 Automotive: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/group-1-automotive/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
